@@ -7,9 +7,7 @@ import { flightService } from '@/services/flight.service';
  * `slug` is expected to be a unique identifier for a destination.
  */
 interface RouteParams {
-  params: {
-    slug: string;
-  };
+  params: Promise<{ slug: string }>;
 }
 
 /**
