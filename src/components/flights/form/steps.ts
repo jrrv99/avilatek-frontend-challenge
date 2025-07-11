@@ -1,5 +1,7 @@
 import { FlightRoutes } from '@/app/flights/routes';
 
+import AdditionalServicesForm from './additional-services-form';
+import SummaryConfirmationForm from './summary-confirmation-form';
 import TravelInformationForm from './travel-information-form';
 import TravelersInformationForm from './travelers-information-form';
 
@@ -41,6 +43,7 @@ export const steps = [
     route: FlightRoutes.ADDITIONAL_SERVICES,
     beforeRoute: FlightRoutes.TRAVELERS_INFORMATION,
     nextRoute: FlightRoutes.SUMMARY_CONFIRMATION,
+    component: AdditionalServicesForm,
     fields: [
       '¿Deseas agregar seguro de viaje?',
       '¿Deseas seleccionar asientos preferenciales?',
@@ -53,6 +56,7 @@ export const steps = [
     title: 'Resumen y Confirmación',
     route: FlightRoutes.SUMMARY_CONFIRMATION,
     beforeRoute: FlightRoutes.ADDITIONAL_SERVICES,
+    component: SummaryConfirmationForm,
     fields: [
       'Destino',
       'Fechas de viaje',
