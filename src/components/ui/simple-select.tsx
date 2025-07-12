@@ -1,0 +1,76 @@
+'use client';
+
+import * as SelectPrimitive from '@radix-ui/react-select';
+import { forwardRef } from 'react';
+import { Label } from './label';
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from './select';
+import { cn } from '@/lib/utils'; // Asumo que tienes esta función para concatenar clases
+import InputError from './input-error';
+
+type Option = {
+  value: string;
+  label: string;
+};
+
+type SelectSimpleProps = React.ComponentProps<typeof SelectPrimitive.Root> & {
+  idName: string;
+  options: Option[];
+  placeholder?: string;
+  value?: string;
+  onChange?: (value: string) => void;
+  error?: { message?: string } | null;
+  label?: string;
+};
+
+const defaultValue: Option = {
+  value: 'none',
+  label: 'Select an option',
+};
+
+const SimpleSelect = forwardRef<HTMLButtonElement, SelectSimpleProps>(
+  (
+    { idName, options, placeholder, value, onChange, error, label, ...props },
+    ref,
+  ) => {
+    const optionsWithDefault = [defaultValue, ...options];
+    return (
+      <div className="grid gap-1 w-full">
+        {label && <Label htmlFor={idName}>{label}</Label>}
+        <Select onValueChange={onChange} value={value} {...props}>
+          <SelectTrigger
+            ref={ref}
+            className={cn(
+              'w-full',
+              error ? 'border-red-500 focus:ring-red-500' : '',
+            )}
+            aria-invalid={!!error}
+            aria-describedby={error ? `${idName}-error` : undefined}
+          >
+            <SelectValue
+              placeholder={placeholder}
+              defaultValue={defaultValue.value}
+            />
+          </SelectTrigger>
+          <SelectContent>
+            {optionsWithDefault.map(option => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <InputError fieldName={idName} message={error?.message} />
+      </div>
+    );
+  },
+);
+
+SimpleSelect.displayName = 'SimpleSelect';
+
+export default SimpleSelect;
