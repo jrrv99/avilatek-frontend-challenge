@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { AppQueryProvider } from '@/components/providers/AppQueryProvider';
 import { Geist, Geist_Mono } from 'next/font/google';
 
 import Header from '@/components/Header';
@@ -28,7 +29,7 @@ const RootLayout = ({
   <html lang="en">
     <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
       <Header />
-      {children}
+      <AppQueryProvider>{children}</AppQueryProvider>
     </body>
   </html>
 );
