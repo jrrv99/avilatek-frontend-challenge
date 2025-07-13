@@ -59,7 +59,7 @@ const StatusComponent: React.FC<StatusComponentProps> = ({
   return (
     <Card>
       <CardHeader className="text-center">
-        <div>{renderIcon}</div>
+        {renderIcon}
         <CardTitle className="text-base font-semibold">{title}</CardTitle>
         {description && (
           <CardDescription className="text-foreground">
