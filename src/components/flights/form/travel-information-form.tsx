@@ -14,6 +14,7 @@ import useGetDestinationBySlug from '@/hooks/useGetDestinationBySlug';
 import useGetDestinations from '@/hooks/useGetDestinations';
 import { travelInformationSchema } from './schemas';
 import { getStepById } from './steps';
+import StatusComponent from '@/components/status-component';
 
 const step = getStepById('travel-information');
 
@@ -24,6 +25,7 @@ const TravelInformationForm = () => {
     error: destinationError,
     refetch: refetchDestinations,
   } = useGetDestinations();
+
   const {
     control,
     watch,
@@ -44,15 +46,41 @@ const TravelInformationForm = () => {
     data: flights,
     isLoading: isLoadingFlights,
     error: flightsError,
-    refetch: refetchFlights, // TODO
+    refetch: refetchFlights,
   } = useGetDestinationBySlug(selectedDestinationSlug);
 
-  if (isLoadingDestinations) {
-    return <div>Loading destinations...</div>;
+  if (destinationError) {
+    return (
+      <StatusComponent
+        title={destinationError.message}
+        type="error"
+        isLoading={isLoadingDestinations}
+        onReload={refetchDestinations}
+      />
+    );
   }
 
-  if (!data?.destinations || data.destinations.length === 0) {
-    return <div>No destinations available.</div>;
+  if (isLoadingDestinations) {
+    return (
+      <StatusComponent
+        title="Cargando destinos..."
+        description="Por favor, espera mientras se cargan los destinos disponibles."
+        type="loading"
+      />
+    );
+  }
+
+  if (!data?.destinations || data.total === 0) {
+    return (
+      <StatusComponent
+        title="No hay destinos disponibles"
+        description="Actualmente no hay destinos disponibles para reservar vuelos."
+        type="empty"
+        isLoading={isLoadingDestinations}
+        reloadLabel="Recargar Destinos"
+        onReload={refetchDestinations}
+      />
+    );
   }
 
   const destinationOptions = data.destinations.map(destination => ({
@@ -78,7 +106,10 @@ const TravelInformationForm = () => {
           {flightsError && (
             <div className="flex flex-row items-end gap-x-1">
               <ErrorMessage message={(flightsError as Error).message} />
-              <ReloadButton onClick={refetchFlights} />
+              <ReloadButton
+                isLoading={isLoadingFlights}
+                onClick={refetchFlights}
+              />
             </div>
           )}
 

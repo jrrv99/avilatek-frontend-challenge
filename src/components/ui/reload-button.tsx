@@ -1,13 +1,14 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { RefreshCw } from 'lucide-react';
+import { RefreshCw, Loader } from 'lucide-react';
 
 type ReloadButtonProps = {
   onClick: () => void;
   className?: string;
   ariaLabel?: string;
   disabled?: boolean;
+  isLoading?: boolean;
 };
 
 const ReloadButton = ({
@@ -15,10 +16,11 @@ const ReloadButton = ({
   className = '',
   ariaLabel = 'Reload',
   disabled = false,
+  isLoading = false,
 }: ReloadButtonProps) => {
   return (
     <Button
-      variant="secondary"
+      variant="default"
       size="icon"
       className={`mb-1 size-8 ${className}`}
       onClick={onClick}
@@ -26,7 +28,8 @@ const ReloadButton = ({
       aria-label={ariaLabel}
       disabled={disabled}
     >
-      <RefreshCw className="text-primary" />
+      {isLoading && <Loader className="animate-spin" />}
+      {!isLoading && <RefreshCw />}
     </Button>
   );
 };
