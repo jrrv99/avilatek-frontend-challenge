@@ -15,7 +15,6 @@ const NavigationButtons: React.FC<NavigationButtonsProps> = ({
   beforeRoute,
   isNextEnabled,
 }) => {
-  console.log(nextRoute, beforeRoute, isNextEnabled);
   return (
     <div className="flex flex-row justify-end gap-2">
       {beforeRoute && (

@@ -4,8 +4,12 @@ export const travelInformationSchema = z
   .object({
     departure: z.string().min(1, 'Selecciona un destino'),
     flight_class: z.string().min(1, 'Selecciona una clase de vuelo'),
-    departure_date: z.date(),
-    return_date: z.date(),
+    departure_date: z.date({
+      error: issue => (issue.input === undefined ? 'La fecha es requerida' : 'Fecha invalida'),
+    }),
+    return_date: z.date({
+      error: issue => (issue.input === undefined ? 'La fecha es requerida' : 'Fecha invalida'),
+    }),
   })
   .refine(data => data.return_date >= data.departure_date, {
     message:
