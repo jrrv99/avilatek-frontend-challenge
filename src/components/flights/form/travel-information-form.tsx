@@ -18,15 +18,25 @@ import { getStepById } from './steps';
 const step = getStepById('travel-information');
 
 const TravelInformationForm = () => {
-  const { data, isLoading: isLoadingDestinations } = useGetDestinations();
+  const {
+    data,
+    isLoading: isLoadingDestinations,
+    error: destinationError,
+    refetch: refetchDestinations,
+  } = useGetDestinations();
   const {
     control,
     watch,
+    setValue,
     formState: { isValid },
   } = useForm({
     mode: 'all',
     resolver: zodResolver(travelInformationSchema),
   });
+
+  const onChangeDestination = (_value: string) => {
+    setValue('flight_class', '');
+  };
 
   const selectedDestinationSlug = watch('departure');
 
@@ -59,6 +69,7 @@ const TravelInformationForm = () => {
             name="departure"
             label="Destino"
             placeholder="Selecciona un destino"
+            onChange={onChangeDestination}
             options={destinationOptions}
           />
 
