@@ -38,6 +38,7 @@ const SimpleSelect = forwardRef<HTMLButtonElement, SelectSimpleProps>(
         {label && <Label htmlFor={idName}>{label}</Label>}
         <Select onValueChange={onChange} value={value ?? undefined} {...props}>
           <SelectTrigger
+            id={idName}
             ref={ref}
             className={cn(
               'w-full',
