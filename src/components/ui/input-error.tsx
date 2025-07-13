@@ -1,5 +1,3 @@
-import React from 'react';
-
 type InputErrorProps = {
   fieldName?: string;
   message?: string;
