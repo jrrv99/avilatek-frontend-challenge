@@ -1,19 +1,12 @@
 import { FlightRoutes } from '@/app/flights/routes';
 
-
-
 export const steps = [
   {
     id: 'travel-information',
     title: 'Información del Viaje',
     route: FlightRoutes.TRAVEL_INFORMATION,
     nextRoute: FlightRoutes.TRAVELERS_INFORMATION,
-    fields: [
-      'Destino',
-      'Fecha de salida',
-      'Fecha de regreso',
-      'Clase de vuelo',
-    ],
+    fields: ['departure', 'flight_class', 'departure_date', 'return_date'],
   },
   {
     id: 'travelers-information',

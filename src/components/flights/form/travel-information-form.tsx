@@ -16,7 +16,7 @@ import { travelInformationSchema } from './schemas';
 import { getStepById } from './steps';
 import StatusComponent from '@/components/status-component';
 
-const step = getStepById('travel-information');
+const step = getStepById('travel-information'); // TODO: Create an enum with the step IDs
 
 const TravelInformationForm = () => {
   const {
@@ -30,6 +30,7 @@ const TravelInformationForm = () => {
     control,
     watch,
     setValue,
+    handleSubmit,
     formState: { isValid },
   } = useForm({
     mode: 'all',
@@ -89,7 +90,12 @@ const TravelInformationForm = () => {
   }));
 
   return (
-    <form className="space-y-3">
+    <form
+      onSubmit={handleSubmit(() => {
+        // TODO: Handle form submission with context and local storage
+      })}
+      className="space-y-3"
+    >
       {data?.destinations && (
         <div className="grid grid-cols-2 items-end gap-x-6 gap-y-3 max-md:grid-cols-1">
           <RHFSimpleSelect
