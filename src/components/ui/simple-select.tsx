@@ -42,7 +42,7 @@ const SimpleSelect = forwardRef<HTMLButtonElement, SelectSimpleProps>(
             ref={ref}
             className={cn(
               'w-full',
-              error ? 'border-red-500 focus:ring-red-500' : '',
+              error ? 'border-destructive focus:ring-destructive' : '',
             )}
             aria-invalid={!!error}
             aria-describedby={error ? `${idName}-error` : undefined}
