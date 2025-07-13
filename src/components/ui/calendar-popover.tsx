@@ -21,7 +21,7 @@ type CalendarPopoverProps = {
   onSelectDate: (date: Date | undefined) => void;
   disabledDate?: (date: Date) => boolean;
   placeholder?: string;
-  error?: { message?: string } | null;
+  error?: { message?: string } | undefined;
 };
 
 export function CalendarPopover({

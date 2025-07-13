@@ -1,11 +1,24 @@
+import { JSX } from 'react';
 import { notFound } from 'next/navigation';
 
-import { stepExists, steps } from '@/components/flights/form/steps';
 import { FormCard } from '@/components/form-card';
+import AdditionalServicesForm from '@/components/flights/form/additional-services-form';
+import SummaryConfirmationForm from '@/components/flights/form/summary-confirmation-form';
+import TravelInformationForm from '@/components/flights/form/travel-information-form';
+import TravelersInformationForm from '@/components/flights/form/travelers-information-form';
+
+import { stepExists, getStepById } from '@/components/flights/form/steps';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
+
+const stepComponents: { [key: string]: () => JSX.Element } = {
+  'travel-information': TravelInformationForm,
+  'travelers-information': TravelersInformationForm,
+  'additional-services': AdditionalServicesForm,
+  'summary-confirmation': SummaryConfirmationForm,
+};
 
 const Page: React.FC<PageProps> = async ({ params }) => {
   const { slug } = await params;
@@ -14,16 +27,12 @@ const Page: React.FC<PageProps> = async ({ params }) => {
     notFound();
   }
 
-  const step = steps.find(_step => _step.id === slug)!;
-  const StepComponent = step?.component || notFound();
+  const step = getStepById(slug)!;
+  const StepComponent = stepComponents[slug] || notFound();
 
   return (
     <section className="w-screen px-8">
-      <FormCard
-        title={step.title}
-        beforeRoute={step?.beforeRoute}
-        nextRoute={step?.nextRoute}
-      >
+      <FormCard title={step.title}>
         <StepComponent />
       </FormCard>
     </section>

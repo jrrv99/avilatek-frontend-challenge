@@ -1,9 +1,6 @@
 import { FlightRoutes } from '@/app/flights/routes';
 
-import AdditionalServicesForm from './additional-services-form';
-import SummaryConfirmationForm from './summary-confirmation-form';
-import TravelInformationForm from './travel-information-form';
-import TravelersInformationForm from './travelers-information-form';
+
 
 export const steps = [
   {
@@ -11,7 +8,6 @@ export const steps = [
     title: 'Información del Viaje',
     route: FlightRoutes.TRAVEL_INFORMATION,
     nextRoute: FlightRoutes.TRAVELERS_INFORMATION,
-    component: TravelInformationForm,
     fields: [
       'Destino',
       'Fecha de salida',
@@ -25,7 +21,6 @@ export const steps = [
     route: FlightRoutes.TRAVELERS_INFORMATION,
     beforeRoute: FlightRoutes.TRAVEL_INFORMATION,
     nextRoute: FlightRoutes.ADDITIONAL_SERVICES,
-    component: TravelersInformationForm,
     fields: [
       'Número de los viajeross',
       'Nombre completo de cada viajero',
@@ -43,7 +38,6 @@ export const steps = [
     route: FlightRoutes.ADDITIONAL_SERVICES,
     beforeRoute: FlightRoutes.TRAVELERS_INFORMATION,
     nextRoute: FlightRoutes.SUMMARY_CONFIRMATION,
-    component: AdditionalServicesForm,
     fields: [
       '¿Deseas agregar seguro de viaje?',
       '¿Deseas seleccionar asientos preferenciales?',
@@ -56,7 +50,6 @@ export const steps = [
     title: 'Resumen y Confirmación',
     route: FlightRoutes.SUMMARY_CONFIRMATION,
     beforeRoute: FlightRoutes.ADDITIONAL_SERVICES,
-    component: SummaryConfirmationForm,
     fields: [
       'Destino',
       'Fechas de viaje',
@@ -72,3 +65,6 @@ export const steps = [
 
 export const stepExists = (slug: string) =>
   steps.some(step => step.id === slug);
+
+export const getStepById = (id: string) =>
+  steps.find(step => step.id === id) || null;
