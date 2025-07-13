@@ -28,21 +28,15 @@ type SelectSimpleProps = React.ComponentProps<typeof SelectPrimitive.Root> & {
   label?: string;
 };
 
-const defaultValue: Option = {
-  value: 'none',
-  label: 'Select an option',
-};
-
 const SimpleSelect = forwardRef<HTMLButtonElement, SelectSimpleProps>(
   (
     { idName, options, placeholder, value, onChange, error, label, ...props },
     ref,
   ) => {
-    const optionsWithDefault = [defaultValue, ...options];
     return (
-      <div className="grid gap-1 w-full">
+      <div className="grid w-full gap-1">
         {label && <Label htmlFor={idName}>{label}</Label>}
-        <Select onValueChange={onChange} value={value} {...props}>
+        <Select onValueChange={onChange} value={value ?? undefined} {...props}>
           <SelectTrigger
             ref={ref}
             className={cn(
@@ -52,13 +46,10 @@ const SimpleSelect = forwardRef<HTMLButtonElement, SelectSimpleProps>(
             aria-invalid={!!error}
             aria-describedby={error ? `${idName}-error` : undefined}
           >
-            <SelectValue
-              placeholder={placeholder}
-              defaultValue={defaultValue.value}
-            />
+            <SelectValue placeholder={placeholder} />
           </SelectTrigger>
           <SelectContent>
-            {optionsWithDefault.map(option => (
+            {options.map(option => (
               <SelectItem key={option.value} value={option.value}>
                 {option.label}
               </SelectItem>
