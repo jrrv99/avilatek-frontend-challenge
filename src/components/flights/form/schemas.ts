@@ -72,3 +72,30 @@ export const travelersInformationSchema = z.object({
 });
 
 export type TravelersInformation = z.infer<typeof travelersInformationSchema>;
+
+export const additionalServicesSchema = z
+  .object({
+    travelInsurance: z.boolean(),
+    preferentialSeats: z.boolean(),
+    specialAssistance: z.boolean(),
+    specialAssistanceNote: z.string().optional(),
+  })
+  .refine(
+    data => {
+      if (data.specialAssistance) {
+        const note = data.specialAssistanceNote;
+        return (
+          typeof note === 'string' &&
+          note.trim().length >= 200
+        );
+      }
+      return true;
+    },
+    {
+      message:
+        'La nota de asistencia especial es requerida y debe tener máximo 200 caracteres cuando specialAssistance está marcada',
+      path: ['specialAssistanceNote'],
+    },
+  );  
+
+export type AdditionalServices = z.infer<typeof additionalServicesSchema>;
