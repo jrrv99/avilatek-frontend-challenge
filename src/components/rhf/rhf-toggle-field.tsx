@@ -1,4 +1,3 @@
-import React from 'react';
 import { Controller, Control, RegisterOptions } from 'react-hook-form';
 import ToggleField, { ToggleFieldProps } from '@/components/ui/toggle-field';
 
@@ -7,6 +6,7 @@ type RHFToggleFieldProps = Omit<ToggleFieldProps, 'checked' | 'onChange'> & {
   control: Control<any>;
   validations?: RegisterOptions;
   disabled?: boolean;
+  onChange?: (checked: boolean) => void;
 };
 
 const RHFToggleField: React.FC<RHFToggleFieldProps> = ({
@@ -14,21 +14,32 @@ const RHFToggleField: React.FC<RHFToggleFieldProps> = ({
   control,
   validations,
   disabled = false,
+  onChange,
   ...rest
 }) => (
   <Controller
     name={name}
     control={control}
     rules={validations}
-    render={({ field }) => (
-      <ToggleField
-        {...rest}
-        name={field.name}
-        checked={!!field.value}
-        onChange={field.onChange}
-        disabled={disabled}
-      />
-    )}
+    render={({ field }) => {
+      const handleChange = (checked: boolean) => {
+        field.onChange(checked); // RHF event
+
+        if (onChange) {
+          onChange(checked); // custom event
+        }
+      };
+
+      return (
+        <ToggleField
+          {...rest}
+          name={field.name}
+          checked={!!field.value}
+          onChange={handleChange}
+          disabled={disabled}
+        />
+      );
+    }}
   />
 );
 
