@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import { AppQueryProvider } from '@/components/providers/AppQueryProvider';
 import { Geist, Geist_Mono } from 'next/font/google';
 
 import Header from '@/components/Header';
+import { AppQueryProvider } from '@/components/providers/AppQueryProvider';
 
 import './globals.css';
 

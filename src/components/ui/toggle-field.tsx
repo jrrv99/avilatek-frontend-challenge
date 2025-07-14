@@ -21,10 +21,7 @@ const ToggleField: React.FC<ToggleFieldProps> = ({
   disabled = false,
 }) => (
   <div className="flex flex-row items-center rounded-lg border p-4">
-    <Label
-      htmlFor={name}
-      className="flex w-full items-start space-y-0.5"
-    >
+    <Label htmlFor={name} className="flex w-full items-start space-y-0.5">
       {Icon && <Icon className="h-8 w-8 text-blue-600" />}
       <div className="flex w-full flex-col items-start space-y-0.5">
         {title}
@@ -34,8 +31,8 @@ const ToggleField: React.FC<ToggleFieldProps> = ({
     <Switch
       id={name}
       checked={checked}
-      onCheckedChange={onChange}
       disabled={disabled}
+      onCheckedChange={onChange}
     />
   </div>
 );

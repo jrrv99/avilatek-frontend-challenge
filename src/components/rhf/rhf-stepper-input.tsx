@@ -1,19 +1,30 @@
-import { Controller } from 'react-hook-form';
+import {
+  Controller,
+  Control,
+  RegisterOptions,
+  FieldValues,
+  Path,
+} from 'react-hook-form';
+
 import StepperInput, { StepperInputProps } from '@/components/ui/stepper-input';
 
-type RHFSimpleStepperProps = Omit<StepperInputProps, 'value' | 'error'> & {
-  name: string;
-  control: any;
-  validations?: object;
+type RHFSimpleStepperProps<T extends FieldValues> = Omit<
+  StepperInputProps,
+  'value' | 'error' | 'onChange'
+> & {
+  name: Path<T>;
+  control: Control<T>;
+  validations?: RegisterOptions<T, Path<T>>;
+  onChange?: (value: number) => void;
 };
 
-const RHFSimpleInput = ({
+const RHFSimpleStepper = <T extends FieldValues>({
   name,
   control,
   validations,
   onChange,
   ...rest
-}: RHFSimpleStepperProps) => (
+}: RHFSimpleStepperProps<T>): React.JSX.Element => (
   <Controller
     name={name}
     control={control}
@@ -23,17 +34,16 @@ const RHFSimpleInput = ({
         {...rest}
         name={name}
         value={field.value ?? 0}
+        error={error}
         onChange={(value: number) => {
           field.onChange(value);
-
           if (onChange) {
             onChange(value);
           }
         }}
-        error={error}
       />
     )}
   />
 );
 
-export default RHFSimpleInput;
+export default RHFSimpleStepper;

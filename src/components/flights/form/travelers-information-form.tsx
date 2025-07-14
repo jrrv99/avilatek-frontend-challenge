@@ -1,19 +1,19 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useCallback } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 
-import NavigationButtons from './navigation-buttons';
 import RHFStepperInput from '@/components/rhf/rhf-stepper-input';
-
-import { TravelersInformation, travelersInformationSchema } from './schemas';
-import { FlightStepIds, getStepById } from './steps';
-import { createEmptyTraveler } from '@/utils/flightUtils';
 import {
   MIN_NUMBER_OF_TRAVELERS,
   MAX_NUMBER_OF_TRAVELERS,
 } from '@/lib/constants';
+import { createEmptyTraveler } from '@/utils/flightUtils';
+
+import NavigationButtons from './navigation-buttons';
+import { TravelersInformation, travelersInformationSchema } from './schemas';
+import { FlightStepIds, getStepById } from './steps';
 import TravelerFormInfo from './traveler-form-info';
 
 interface TravelersInformationFormProps {
@@ -79,10 +79,10 @@ const TravelersInformationForm: React.FC<TravelersInformationFormProps> = ({
 
   return (
     <form
+      className="space-y-3"
       onSubmit={handleSubmit(() => {
         // TODO: Handle form submission with context and local storage
       })}
-      className="space-y-3"
     >
       <div className="grid justify-center">
         <RHFStepperInput
@@ -103,11 +103,11 @@ const TravelersInformationForm: React.FC<TravelersInformationFormProps> = ({
           index={index}
           control={control}
           watch={watch}
+          handleCounterFlagChange={handleCounterFlagChange}
           onDelete={() => {
             remove(index);
             setValue('numberOfTravelers', fields.length - 1);
           }}
-          handleCounterFlagChange={handleCounterFlagChange}
         />
       ))}
 

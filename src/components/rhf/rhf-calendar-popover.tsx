@@ -1,40 +1,39 @@
 'use client';
 
-import { Controller, Control } from 'react-hook-form';
+import { Controller, Control, FieldValues, Path } from 'react-hook-form';
+
 import { CalendarPopover } from '@/components/ui/calendar-popover';
 
-type DatePickerProps = {
-  control: Control<any>;
-  name: string;
+type DatePickerProps<T extends FieldValues> = {
+  control: Control<T>;
+  name: Path<T>;
   placeholder?: string;
   label?: string;
   rules?: object;
 };
 
-export default function RHFCalendarPopover({
+const RHFCalendarPopover = <T extends FieldValues>({
   control,
   name,
   label,
   rules,
   placeholder = 'Selecciona una fecha',
-}: DatePickerProps) {
-  return (
-    <Controller
-      control={control}
-      name={name}
-      rules={rules}
-      render={({ field, fieldState: { error } }) => {
-        return (
-            <CalendarPopover
-              idName={name}
-              label={label}
-              selectedDate={field.value}
-              onSelectDate={field.onChange}
-              placeholder={placeholder}
-              error={error}
-            />
-        );
-      }}
-    />
-  );
-}
+}: DatePickerProps<T>): React.JSX.Element => (
+  <Controller
+    control={control}
+    name={name}
+    rules={rules}
+    render={({ field, fieldState: { error } }) => (
+      <CalendarPopover
+        idName={name}
+        label={label}
+        selectedDate={field.value}
+        placeholder={placeholder}
+        error={error}
+        onSelectDate={field.onChange}
+      />
+    )}
+  />
+);
+
+export default RHFCalendarPopover;

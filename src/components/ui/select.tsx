@@ -41,7 +41,7 @@ const SelectTrigger = ({
   >
     {children}
     <SelectPrimitive.Icon asChild>
-      <ChevronDownIcon className="size-4 text-primary" />
+      <ChevronDownIcon className="text-primary size-4" />
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
 );
@@ -105,7 +105,7 @@ const SelectItem = ({
   >
     <span className="absolute right-2 flex size-3.5 items-center justify-center">
       <SelectPrimitive.ItemIndicator>
-        <CheckIcon className="size-4 text-primary" />
+        <CheckIcon className="text-primary size-4" />
       </SelectPrimitive.ItemIndicator>
     </span>
     <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
