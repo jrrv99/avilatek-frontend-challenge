@@ -23,7 +23,7 @@ const StepperInput: React.FC<StepperInputProps> = ({
   label,
   min,
   max,
-  value = 0,
+  value,
   error,
   className,
   onChange,
@@ -51,11 +51,7 @@ const StepperInput: React.FC<StepperInputProps> = ({
           max={max}
           value={value}
           className="w-20 text-center"
-          onChange={e => {
-            const value = Number.parseInt(e.target.value) || 1;
-            const clampedValue = Math.max(1, Math.min(10, value));
-            if (onChange) onChange(clampedValue);
-          }}
+          onChange={onChange ? (e) => onChange(Number(e.target.value)) : undefined}
         />
         <Button
           type="button"
