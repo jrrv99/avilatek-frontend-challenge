@@ -9,14 +9,14 @@ import ErrorMessage from '@/components/ui/error-message';
 import LoadingMessage from '@/components/ui/loading-message';
 import ReloadButton from '@/components/ui/reload-button';
 import NavigationButtons from './navigation-buttons';
+import StatusComponent from '@/components/status-component';
 
 import useGetDestinationBySlug from '@/hooks/useGetDestinationBySlug';
 import useGetDestinations from '@/hooks/useGetDestinations';
 import { travelInformationSchema } from './schemas';
-import { getStepById } from './steps';
-import StatusComponent from '@/components/status-component';
+import { getStepById, FlightStepIds } from './steps';
 
-const step = getStepById('travel-information'); // TODO: Create an enum with the step IDs
+const step = getStepById(FlightStepIds.TRAVEL_INFORMATION);
 
 const TravelInformationForm = () => {
   const {

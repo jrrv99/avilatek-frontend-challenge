@@ -1,15 +1,31 @@
 import { FlightRoutes } from '@/app/flights/routes';
 
-export const steps = [
+export enum FlightStepIds {
+  TRAVEL_INFORMATION = 'travel-information',
+  TRAVELERS_INFORMATION = 'travelers-information',
+  ADDITIONAL_SERVICES = 'additional-services',
+  SUMMARY_CONFIRMATION = 'summary-confirmation',
+}
+
+type Step = {
+  id: FlightStepIds;
+  title: string;
+  route: string;
+  beforeRoute?: string;
+  nextRoute?: string;
+  fields?: string[];
+};
+
+export const steps: Step[] = [
   {
-    id: 'travel-information',
+    id: FlightStepIds.TRAVEL_INFORMATION,
     title: 'Información del Viaje',
     route: FlightRoutes.TRAVEL_INFORMATION,
     nextRoute: FlightRoutes.TRAVELERS_INFORMATION,
     fields: ['departure', 'flight_class', 'departure_date', 'return_date'],
   },
   {
-    id: 'travelers-information',
+    id: FlightStepIds.TRAVELERS_INFORMATION,
     title: 'Información de los Viajero',
     route: FlightRoutes.TRAVELERS_INFORMATION,
     beforeRoute: FlightRoutes.TRAVEL_INFORMATION,
@@ -26,7 +42,7 @@ export const steps = [
     ],
   },
   {
-    id: 'additional-services',
+    id: FlightStepIds.ADDITIONAL_SERVICES,
     title: 'Servicios adicionales',
     route: FlightRoutes.ADDITIONAL_SERVICES,
     beforeRoute: FlightRoutes.TRAVELERS_INFORMATION,
@@ -39,7 +55,7 @@ export const steps = [
     ],
   },
   {
-    id: 'summary-confirmation',
+    id: FlightStepIds.SUMMARY_CONFIRMATION,
     title: 'Resumen y Confirmación',
     route: FlightRoutes.SUMMARY_CONFIRMATION,
     beforeRoute: FlightRoutes.ADDITIONAL_SERVICES,
@@ -56,8 +72,11 @@ export const steps = [
   },
 ];
 
-export const stepExists = (slug: string) =>
+export const isFlightStepId = (value: string): value is FlightStepIds =>
+  Object.values(FlightStepIds).includes(value as FlightStepIds);
+
+export const stepExists = (slug: FlightStepIds) =>
   steps.some(step => step.id === slug);
 
-export const getStepById = (id: string) =>
+export const getStepById = (id: FlightStepIds) =>
   steps.find(step => step.id === id) || null;

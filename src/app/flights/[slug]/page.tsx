@@ -7,13 +7,17 @@ import SummaryConfirmationForm from '@/components/flights/form/summary-confirmat
 import TravelInformationForm from '@/components/flights/form/travel-information-form';
 import TravelersInformationForm from '@/components/flights/form/travelers-information-form';
 
-import { stepExists, getStepById } from '@/components/flights/form/steps';
+import {
+  isFlightStepId,
+  stepExists,
+  getStepById,
+} from '@/components/flights/form/steps';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-const stepComponents: { [key: string]: () => JSX.Element } = {
+const stepComponents: { [key: string]: React.FC } = {
   'travel-information': TravelInformationForm,
   'travelers-information': TravelersInformationForm,
   'additional-services': AdditionalServicesForm,
@@ -23,7 +27,7 @@ const stepComponents: { [key: string]: () => JSX.Element } = {
 const Page: React.FC<PageProps> = async ({ params }) => {
   const { slug } = await params;
 
-  if (!stepExists(slug)) {
+  if (!isFlightStepId(slug) || !stepExists(slug)) {
     notFound();
   }
 
