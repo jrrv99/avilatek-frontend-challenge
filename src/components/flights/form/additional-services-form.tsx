@@ -1,33 +1,45 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
-import { Shield, Armchair, Heart } from 'lucide-react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Shield, Armchair, Heart } from 'lucide-react';
+import { useForm } from 'react-hook-form';
 
-import RHFToggleField from '@/components/rhf/rhf-toggle-field';
 import RHFTextareaField from '@/components/rhf/rhf-textarea-field';
-import NavigationButtons from './navigation-buttons';
+import RHFToggleField from '@/components/rhf/rhf-toggle-field';
 
-import { getStepById, FlightStepIds } from './steps';
+import NavigationButtons from './navigation-buttons';
 import { additionalServicesSchema } from './schemas';
+import { getStepById, FlightStepIds } from './steps';
 
 const step = getStepById(FlightStepIds.ADDITIONAL_SERVICES);
 
-const toggleFields = [
+export enum AdditionalServiceName {
+  TravelInsurance = 'travelInsurance',
+  PreferentialSeats = 'preferentialSeats',
+  SpecialAssistance = 'specialAssistance',
+  SpecialAssistanceNote = 'specialAssistanceNote',
+}
+
+const toggleFields: {
+  name: Exclude<AdditionalServiceName, 'specialAssistanceNote'>;
+  title: string;
+  description: string;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+}[] = [
   {
-    name: 'travelInsurance',
+    name: AdditionalServiceName.TravelInsurance,
     title: 'Seguro de viaje',
     description: 'Protege tu inversión con cobertura completa',
     icon: Shield,
   },
   {
-    name: 'preferentialSeats',
+    name: AdditionalServiceName.PreferentialSeats,
     title: 'Asientos preferenciales',
     description: 'Selecciona los mejores asientos del avión',
     icon: Armchair,
   },
   {
-    name: 'specialAssistance',
+    name: AdditionalServiceName.SpecialAssistance,
     title: 'Asistencia especial',
     description: 'Soporte personalizado durante tu viaje',
     icon: Heart,
@@ -38,7 +50,6 @@ const AdditionalServicesForm = () => {
   const {
     control,
     watch,
-    getValues,
     handleSubmit,
     formState: { isValid },
   } = useForm({
@@ -52,15 +63,12 @@ const AdditionalServicesForm = () => {
 
   const specialAssistance = watch('specialAssistance');
 
-  const values = getValues();
-  const validated = additionalServicesSchema.safeParse(values);
-
   return (
     <form
+      className="space-y-3"
       onSubmit={handleSubmit(() => {
         // TODO: Handle form submission with context and local storage
       })}
-      className="space-y-3"
     >
       {toggleFields.map(field => (
         <RHFToggleField

@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
 import { Loader, TriangleAlert, RefreshCw, Plane, Info } from 'lucide-react';
+import { ReactNode } from 'react';
 
 import { Button } from './ui/button';
 import {
@@ -69,7 +69,7 @@ const StatusComponent: React.FC<StatusComponentProps> = ({
       </CardHeader>
       {onReload && (
         <CardFooter className="justify-center">
-          <Button onClick={onReload} disabled={isLoading} type="button">
+          <Button disabled={isLoading} type="button" onClick={onReload}>
             {!isLoading && <RefreshCw />}
             {isLoading && <Loader className="animate-spin" />}
             {!isLoading ? reloadLabel : 'Cargando...'}

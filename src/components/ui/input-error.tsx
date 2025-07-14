@@ -12,7 +12,7 @@ const InputError = ({ fieldName, message, className }: InputErrorProps) => {
   return (
     <p
       id={fieldName ? `${fieldName}-error` : undefined}
-      className={`text-sm text-destructive ${className ?? ''}`}
+      className={`text-destructive text-sm ${className ?? ''}`}
       role="alert"
     >
       {message}

@@ -1,18 +1,18 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 
-import RHFSimpleSelect from '@/components/rhf/rhf-simple-select';
 import RHFCalendarPopover from '@/components/rhf/rhf-calendar-popover';
+import RHFSimpleSelect from '@/components/rhf/rhf-simple-select';
+import StatusComponent from '@/components/status-component';
 import ErrorMessage from '@/components/ui/error-message';
 import LoadingMessage from '@/components/ui/loading-message';
 import ReloadButton from '@/components/ui/reload-button';
-import NavigationButtons from './navigation-buttons';
-import StatusComponent from '@/components/status-component';
-
 import useGetDestinationBySlug from '@/hooks/useGetDestinationBySlug';
 import useGetDestinations from '@/hooks/useGetDestinations';
+
+import NavigationButtons from './navigation-buttons';
 import { travelInformationSchema } from './schemas';
 import { getStepById, FlightStepIds } from './steps';
 
@@ -91,10 +91,10 @@ const TravelInformationForm = () => {
 
   return (
     <form
+      className="space-y-3"
       onSubmit={handleSubmit(() => {
         // TODO: Handle form submission with context and local storage
       })}
-      className="space-y-3"
     >
       {data?.destinations && (
         <div className="grid grid-cols-2 items-end gap-x-6 gap-y-3 max-md:grid-cols-1">
@@ -103,8 +103,8 @@ const TravelInformationForm = () => {
             name="departure"
             label="Destino"
             placeholder="Selecciona un destino"
-            onChange={onChangeDestination}
             options={destinationOptions}
+            onChange={onChangeDestination}
           />
 
           {isLoadingFlights && <LoadingMessage message="Buscando Vuelos..." />}

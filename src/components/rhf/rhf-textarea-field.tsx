@@ -1,21 +1,30 @@
-import React from 'react';
-import { Controller, Control, RegisterOptions } from 'react-hook-form';
+import {
+  Controller,
+  Control,
+  RegisterOptions,
+  FieldValues,
+  Path,
+} from 'react-hook-form';
+
 import TextareaField, {
   TextareaFieldProps,
 } from '@/components/ui/textarea-field';
 
-type RHFTextareaFieldProps = Omit<TextareaFieldProps, 'error' | 'id'> & {
-  name: string;
-  control: Control<any>;
-  validations?: RegisterOptions;
+type RHFTextareaFieldProps<T extends FieldValues> = Omit<
+  TextareaFieldProps,
+  'error' | 'id'
+> & {
+  name: Path<T>;
+  control: Control<T>;
+  validations?: RegisterOptions<T, Path<T>>;
 };
 
-const RHFTextareaField: React.FC<RHFTextareaFieldProps> = ({
+const RHFTextareaField = <T extends FieldValues>({
   name,
   control,
   validations,
   ...rest
-}) => (
+}: RHFTextareaFieldProps<T>): React.JSX.Element => (
   <Controller
     name={name}
     control={control}

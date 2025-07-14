@@ -1,4 +1,11 @@
-import { Controller } from 'react-hook-form';
+import {
+  Controller,
+  Control,
+  RegisterOptions,
+  FieldValues,
+  Path,
+} from 'react-hook-form';
+
 import SimpleSelect from '@/components/ui/simple-select';
 
 type Option = {
@@ -6,17 +13,17 @@ type Option = {
   label: string;
 };
 
-type RHFSimpleSelectProps = {
-  name: string;
-  control: any;
+type RHFSimpleSelectProps<T extends FieldValues> = {
+  name: Path<T>;
+  control: Control<T>;
   label?: string;
   options: Option[];
   placeholder?: string;
-  validations?: object;
+  validations?: RegisterOptions<T, Path<T>>;
   onChange?: (value: string) => void;
 };
 
-const RHFSimpleSelect = ({
+const RHFSimpleSelect = <T extends FieldValues>({
   name,
   control,
   label,
@@ -24,7 +31,7 @@ const RHFSimpleSelect = ({
   placeholder,
   validations,
   onChange,
-}: RHFSimpleSelectProps) => (
+}: RHFSimpleSelectProps<T>): React.JSX.Element => (
   <Controller
     name={name}
     control={control}
@@ -44,8 +51,8 @@ const RHFSimpleSelect = ({
           options={options}
           placeholder={placeholder}
           value={field.value}
-          onChange={handleChange}
           error={error}
+          onChange={handleChange}
         />
       );
     }}

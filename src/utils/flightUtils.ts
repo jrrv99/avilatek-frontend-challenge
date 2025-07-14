@@ -2,7 +2,7 @@ import { Traveler } from '@/components/flights/form/schemas';
 
 export const createEmptyTraveler = (): Traveler => ({
   fullName: '',
-  birthDate: '',
+  birthDate: new Date(),
   documentType: '',
   documentNumber: '',
   hasPets: false,

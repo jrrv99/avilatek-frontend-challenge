@@ -1,13 +1,12 @@
-import { getDestinations } from "@/api/flights";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from '@tanstack/react-query';
 
+import { getDestinations } from '@/api/flights';
 
-const useGetDestinations = () => {
-  return useQuery({
+const useGetDestinations = () =>
+  useQuery({
     queryKey: ['destinations'],
     queryFn: getDestinations,
     refetchOnWindowFocus: false,
   });
-};
 
 export default useGetDestinations;

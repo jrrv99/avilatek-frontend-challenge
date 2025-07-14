@@ -1,7 +1,8 @@
 import React from 'react';
+
+import InputError from './input-error';
 import { Label } from './label';
 import { Textarea } from './textarea';
-import InputError from './input-error';
 
 export type TextareaFieldProps = React.ComponentProps<typeof Textarea> & {
   label?: string;

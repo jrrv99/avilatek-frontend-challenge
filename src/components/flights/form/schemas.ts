@@ -51,15 +51,10 @@ export const TravelerSchema = z
     message: 'Si tiene mascotas, debe especificar al menos una mascota',
     path: ['numberOfPets'], // el error se asigna a numberOfPets
   })
-  .refine(
-    data => {
-      return !(data.hasExtraBaggage && data.numberOfExtraBaggage < 1);
-    },
-    {
-      message: 'Si tiene equipaje extra, debe especificar al menos una pieza',
-      path: ['numberOfExtraBaggage'], // el error se asigna a numberOfExtraBaggage
-    },
-  );
+  .refine(data => !(data.hasExtraBaggage && data.numberOfExtraBaggage < 1), {
+    message: 'Si tiene equipaje extra, debe especificar al menos una pieza',
+    path: ['numberOfExtraBaggage'], // el error se asigna a numberOfExtraBaggage
+  });
 
 export type Traveler = z.infer<typeof TravelerSchema>;
 
@@ -84,10 +79,7 @@ export const additionalServicesSchema = z
     data => {
       if (data.specialAssistance) {
         const note = data.specialAssistanceNote;
-        return (
-          typeof note === 'string' &&
-          note.trim().length >= 200
-        );
+        return typeof note === 'string' && note.trim().length >= 200;
       }
       return true;
     },
@@ -96,6 +88,6 @@ export const additionalServicesSchema = z
         'La nota de asistencia especial es requerida y debe tener máximo 200 caracteres cuando specialAssistance está marcada',
       path: ['specialAssistanceNote'],
     },
-  );  
+  );
 
 export type AdditionalServices = z.infer<typeof additionalServicesSchema>;

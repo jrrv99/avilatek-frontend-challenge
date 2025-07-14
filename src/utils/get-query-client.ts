@@ -2,8 +2,8 @@ import { QueryClient, isServer } from '@tanstack/react-query';
 
 const DEFAULT_STALE_TIME = 1000 * 60 * 5; // 5 minutes
 
-const buildQueryClient = () => {
-  return new QueryClient({
+const buildQueryClient = () =>
+  new QueryClient({
     defaultOptions: {
       queries: {
         refetchOnWindowFocus: false,
@@ -12,7 +12,6 @@ const buildQueryClient = () => {
       },
     },
   });
-};
 
 let queryClientInstance: QueryClient | null = null;
 

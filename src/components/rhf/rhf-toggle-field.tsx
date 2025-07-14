@@ -1,22 +1,32 @@
-import { Controller, Control, RegisterOptions } from 'react-hook-form';
+import {
+  Controller,
+  Control,
+  RegisterOptions,
+  FieldValues,
+  Path,
+} from 'react-hook-form';
+
 import ToggleField, { ToggleFieldProps } from '@/components/ui/toggle-field';
 
-type RHFToggleFieldProps = Omit<ToggleFieldProps, 'checked' | 'onChange'> & {
-  name: string;
-  control: Control<any>;
-  validations?: RegisterOptions;
+type RHFToggleFieldProps<T extends FieldValues> = Omit<
+  ToggleFieldProps,
+  'checked' | 'onChange'
+> & {
+  name: Path<T>;
+  control: Control<T>;
+  validations?: RegisterOptions<T, Path<T>>;
   disabled?: boolean;
   onChange?: (checked: boolean) => void;
 };
 
-const RHFToggleField: React.FC<RHFToggleFieldProps> = ({
+const RHFToggleField = <T extends FieldValues>({
   name,
   control,
   validations,
   disabled = false,
   onChange,
   ...rest
-}) => (
+}: RHFToggleFieldProps<T>): React.JSX.Element => (
   <Controller
     name={name}
     control={control}
@@ -35,8 +45,8 @@ const RHFToggleField: React.FC<RHFToggleFieldProps> = ({
           {...rest}
           name={field.name}
           checked={!!field.value}
-          onChange={handleChange}
           disabled={disabled}
+          onChange={handleChange}
         />
       );
     }}

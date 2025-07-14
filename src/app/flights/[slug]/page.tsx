@@ -1,17 +1,15 @@
-import { JSX } from 'react';
 import { notFound } from 'next/navigation';
 
-import { FormCard } from '@/components/form-card';
 import AdditionalServicesForm from '@/components/flights/form/additional-services-form';
-import SummaryConfirmationForm from '@/components/flights/form/summary-confirmation-form';
-import TravelInformationForm from '@/components/flights/form/travel-information-form';
-import TravelersInformationForm from '@/components/flights/form/travelers-information-form';
-
 import {
   isFlightStepId,
   stepExists,
   getStepById,
 } from '@/components/flights/form/steps';
+import SummaryConfirmationForm from '@/components/flights/form/summary-confirmation-form';
+import TravelInformationForm from '@/components/flights/form/travel-information-form';
+import TravelersInformationForm from '@/components/flights/form/travelers-information-form';
+import { FormCard } from '@/components/form-card';
 
 interface PageProps {
   params: Promise<{ slug: string }>;

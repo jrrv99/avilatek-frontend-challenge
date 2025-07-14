@@ -11,7 +11,7 @@ const ErrorMessage = ({ message, className }: ErrorMessageProps) => {
   return (
     <div
       role="alert"
-      className={`border-destructive-foreground bg-destructive-foreground text-destructive flex h-9 items-center space-x-2 rounded-md border px-3 w-full ${className ?? ''}`}
+      className={`border-destructive-foreground bg-destructive-foreground text-destructive flex h-9 w-full items-center space-x-2 rounded-md border px-3 ${className ?? ''}`}
     >
       <CircleAlert />
       <p className="text-sm font-medium">{message}</p>

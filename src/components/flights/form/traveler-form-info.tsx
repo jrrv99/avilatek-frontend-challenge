@@ -1,22 +1,24 @@
 'use client';
 
-import RHFStepperInput from '@/components/rhf/rhf-stepper-input';
+import { Trash } from 'lucide-react';
+import { FieldArrayWithId, Control, UseFormWatch } from 'react-hook-form';
+
+import RHFCalendarPopover from '@/components/rhf/rhf-calendar-popover';
 import RHFSimpleInput from '@/components/rhf/rhf-simple-input';
 import RHFSimpleSelect from '@/components/rhf/rhf-simple-select';
-import RHFCalendarPopover from '@/components/rhf/rhf-calendar-popover';
+import RHFStepperInput from '@/components/rhf/rhf-stepper-input';
 import RHFToggleField from '@/components/rhf/rhf-toggle-field';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-
-import { documentTypes } from './schemas';
-import { PET_EXTRA_COST, EXTRA_BAGGAGE_COST } from '@/lib/constants';
 import { Button } from '@/components/ui/button';
-import { Trash } from 'lucide-react';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { PET_EXTRA_COST, EXTRA_BAGGAGE_COST } from '@/lib/constants';
+
+import { documentTypes, Traveler, TravelersInformation } from './schemas';
 
 type TravelerCardProps = {
-  traveler: any;
+  traveler: FieldArrayWithId<Traveler>;
   index: number;
-  control: any;
-  watch: any;
+  control: Control<TravelersInformation>;
+  watch: UseFormWatch<TravelersInformation>;
   onDelete: () => void;
   handleCounterFlagChange: (
     index: number,
@@ -45,9 +47,9 @@ const TravelerFormInfo: React.FC<TravelerCardProps> = ({
             type="button"
             variant="ghost"
             size="sm"
-            onClick={onDelete}
             aria-label={`Eliminar viajero ${index + 1}`}
             className="text-destructive hover:bg-destructive/10"
+            onClick={onDelete}
           >
             <Trash className="h-4 w-4" />
           </Button>

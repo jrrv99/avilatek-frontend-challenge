@@ -1,6 +1,6 @@
-import { Label } from './label';
 import { Input } from './input';
 import InputError from './input-error';
+import { Label } from './label';
 
 export type SimpleInputProps = React.ComponentProps<typeof Input> & {
   label?: string;
