@@ -6,6 +6,8 @@ import useGetFlightBySlug from '@/hooks/useGetFlightBySlug';
 
 import TravelDetails from '../travel-details';
 
+import TravelersDetailsCard from './travelers-details-card';
+
 const SummaryConfirmationForm = () => {
   const { getCombinedData } = useBookingFormData();
   const bookingFormData = getCombinedData()!;
@@ -34,6 +36,11 @@ const SummaryConfirmationForm = () => {
           return_date: bookingFormData?.return_date,
           ...flight,
         }}
+      />
+
+      <TravelersDetailsCard
+        travelers={bookingFormData.travelers}
+        numberOfTravelers={bookingFormData.numberOfTravelers}
       />
     </div>
   );
