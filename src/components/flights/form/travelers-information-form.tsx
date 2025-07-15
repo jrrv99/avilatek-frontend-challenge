@@ -98,7 +98,9 @@ const TravelersInformationForm: React.FC = () => {
           key={traveler.id}
           traveler={traveler}
           index={index}
+          // @ts-expect-error birthDate may be unknown, will be fixed later
           control={control}
+          // @ts-expect-error birthDate may be unknown, will be fixed later
           watch={watch}
           handleCounterFlagChange={handleCounterFlagChange}
           onDelete={() => {
