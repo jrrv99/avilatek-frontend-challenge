@@ -5,7 +5,7 @@ interface FormCardProps {
   children: React.ReactNode;
 }
 
-export const FormCard = ({ title, children }: FormCardProps) => (
+export const SectionCard = ({ title, children }: FormCardProps) => (
   <Card className="w-full">
     <CardHeader>
       <CardTitle className="mx-auto">{title}</CardTitle>

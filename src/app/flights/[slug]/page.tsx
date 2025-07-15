@@ -9,7 +9,7 @@ import {
 import SummaryConfirmationForm from '@/components/flights/form/summary-confirmation-form';
 import TravelInformationForm from '@/components/flights/form/travel-information-form';
 import TravelersInformationForm from '@/components/flights/form/travelers-information-form';
-import { FormCard } from '@/components/form-card';
+import { SectionCard } from '@/components/section-card';
 import { BookingFormProvider } from '@/contexts/flightFormContext';
 
 interface PageProps {
@@ -36,9 +36,9 @@ const Page: React.FC<PageProps> = async ({ params }) => {
   return (
     <BookingFormProvider>
       <section className="w-screen px-8">
-        <FormCard title={step.title}>
+        <SectionCard title={step.title}>
           <StepComponent />
-        </FormCard>
+        </SectionCard>
       </section>
     </BookingFormProvider>
   );
