@@ -78,6 +78,24 @@ class FlightService {
   }
 
   /**
+   * Retrieves a normalized flight object by its slug identifier.
+   *
+   * This method fetches raw flight data and normalizes it before searching
+   * for a flight that matches the provided slug. If no matching flight is found,
+   * it returns `undefined`.
+   *
+   * @param flightSlug - The unique identifier (slug) of the flight to retrieve.
+   * @returns A `NormalizedFlight` object if a match is found, otherwise `undefined`.
+   */
+  async getFlightBySlug(
+    flightSlug: string,
+  ): Promise<NormalizedFlight | undefined> {
+    await this.fetchRawFlights();
+
+    return this.normalizedFlights.find(_flight => _flight.id === flightSlug);
+  }
+
+  /**
    * Filters and returns flights that match the given flight class.
    * @param flightClass - The slug of the flight class to filter flights by.
    * @returns A promise that resolves to an array of flights for the specified class.

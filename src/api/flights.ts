@@ -1,10 +1,12 @@
 import type {
   DestinationsResponse,
   FlightsResponse,
+  NormalizedFlight,
 } from '@/types/flights.types';
 
 enum FlightsApi {
   GetFlights = '/api/flights/',
+  GetFlightBySlug = '/api/flights/:slug/',
   GetDestinations = '/api/flights/destinations/',
   GetDestinationBySlug = '/api/flights/destinations/:slug/',
 }
@@ -30,4 +32,17 @@ export const getDestinationBySlug = async (
   }
 
   return response.json() as Promise<FlightsResponse>;
+};
+
+export const getFlightBySlug = async (
+  slug: string,
+): Promise<NormalizedFlight> => {
+  const url = FlightsApi.GetFlightBySlug.replace(':slug', slug);
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch flight with slug: ${slug}`);
+  }
+
+  return response.json() as Promise<NormalizedFlight>;
 };
