@@ -6,15 +6,17 @@ import { cn } from '@/lib/utils';
 interface FormCardProps {
   title: ReactNode | string;
   children: React.ReactNode;
+  className?: string;
   titleClassName?: string;
 }
 
 export const SectionCard = ({
   title,
   children,
+  className,
   titleClassName,
 }: FormCardProps) => (
-  <Card className="w-full">
+  <Card className={cn('w-full', className)}>
     <CardHeader>
       <CardTitle className={cn('flex items-center gap-2', titleClassName)}>
         {title}

@@ -7,6 +7,7 @@ import useGetFlightBySlug from '@/hooks/useGetFlightBySlug';
 import TravelDetails from '../travel-details';
 
 import AdditionalServicesSection from './additional-services-details';
+import CostSummarySection from './summary-costs-card';
 import TravelersDetailsCard from './travelers-details-card';
 
 const SummaryConfirmationForm = () => {
@@ -51,6 +52,12 @@ const SummaryConfirmationForm = () => {
           specialAssistance: bookingFormData.specialAssistance,
           specialAssistanceNote: bookingFormData.specialAssistanceNote,
         }}
+      />
+
+      <CostSummarySection
+        travelers={bookingFormData.travelers}
+        numberOfTravelers={bookingFormData.numberOfTravelers}
+        flightPriceUSD={flight.priceUSD}
       />
     </div>
   );
