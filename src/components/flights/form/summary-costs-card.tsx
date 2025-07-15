@@ -43,7 +43,7 @@ const CostSummarySection: React.FC<CostSummarySectionProps> = ({
     >
       <div className="space-y-3">
         <CostLineItem
-          label={`Vuelo`}
+          label={`Viajeros`}
           quantity={numberOfTravelers}
           amount={flightCost}
         />
