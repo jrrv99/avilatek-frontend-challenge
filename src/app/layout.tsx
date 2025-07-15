@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
+import { Toaster } from 'sonner';
 
 import Header from '@/components/Header';
 import { AppQueryProvider } from '@/components/providers/AppQueryProvider';
@@ -30,6 +31,7 @@ const RootLayout = ({
     <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
       <Header />
       <AppQueryProvider>{children}</AppQueryProvider>
+      <Toaster position="top-right" richColors />
     </body>
   </html>
 );

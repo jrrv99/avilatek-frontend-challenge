@@ -9,6 +9,7 @@ import StatusComponent from '@/components/status-component';
 import ErrorMessage from '@/components/ui/error-message';
 import LoadingMessage from '@/components/ui/loading-message';
 import ReloadButton from '@/components/ui/reload-button';
+import { useBookingFormData } from '@/contexts/flightFormContext';
 import useGetDestinationBySlug from '@/hooks/useGetDestinationBySlug';
 import useGetDestinations from '@/hooks/useGetDestinations';
 
@@ -19,6 +20,8 @@ import { getStepById, FlightStepIds } from './steps';
 const step = getStepById(FlightStepIds.TRAVEL_INFORMATION);
 
 const TravelInformationForm = () => {
+  const { data: bookingFormData, updateStepData } = useBookingFormData();
+
   const {
     data,
     isLoading: isLoadingDestinations,
@@ -34,6 +37,7 @@ const TravelInformationForm = () => {
     formState: { isValid },
   } = useForm({
     mode: 'all',
+    defaultValues: bookingFormData[FlightStepIds.TRAVEL_INFORMATION] || {},
     resolver: zodResolver(travelInformationSchema),
   });
 
@@ -92,8 +96,8 @@ const TravelInformationForm = () => {
   return (
     <form
       className="space-y-3"
-      onSubmit={handleSubmit(() => {
-        // TODO: Handle form submission with context and local storage
+      onSubmit={handleSubmit(formData => {
+        updateStepData(FlightStepIds.TRAVEL_INFORMATION, formData);
       })}
     >
       {data?.destinations && (
