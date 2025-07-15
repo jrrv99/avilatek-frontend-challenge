@@ -36,7 +36,7 @@ const Page: React.FC<PageProps> = async ({ params }) => {
   return (
     <BookingFormProvider>
       <section className="w-screen px-8">
-        <SectionCard title={step.title}>
+        <SectionCard title={step.title} titleClassName="mx-auto">
           <StepComponent />
         </SectionCard>
       </section>
