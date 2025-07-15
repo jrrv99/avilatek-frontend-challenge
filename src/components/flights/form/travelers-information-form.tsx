@@ -5,6 +5,7 @@ import { useCallback } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 
 import RHFStepperInput from '@/components/rhf/rhf-stepper-input';
+import { useBookingFormData } from '@/contexts/flightFormContext';
 import {
   MIN_NUMBER_OF_TRAVELERS,
   MAX_NUMBER_OF_TRAVELERS,
@@ -12,19 +13,15 @@ import {
 import { createEmptyTraveler } from '@/utils/flightUtils';
 
 import NavigationButtons from './navigation-buttons';
-import { TravelersInformation, travelersInformationSchema } from './schemas';
+import { travelersInformationSchema } from './schemas';
 import { FlightStepIds, getStepById } from './steps';
 import TravelerFormInfo from './traveler-form-info';
 
-interface TravelersInformationFormProps {
-  defaultValues?: TravelersInformation;
-}
-
 const step = getStepById(FlightStepIds.TRAVELERS_INFORMATION);
 
-const TravelersInformationForm: React.FC<TravelersInformationFormProps> = ({
-  defaultValues,
-}) => {
+const TravelersInformationForm: React.FC = () => {
+  const { data: bookingFormData, updateStepData } = useBookingFormData();
+
   const {
     control,
     setValue,
@@ -40,7 +37,7 @@ const TravelersInformationForm: React.FC<TravelersInformationFormProps> = ({
         { length: MIN_NUMBER_OF_TRAVELERS },
         createEmptyTraveler,
       ),
-      ...defaultValues,
+      ...bookingFormData[FlightStepIds.TRAVELERS_INFORMATION], // For updating actions or existing data
     },
   });
 
@@ -80,8 +77,8 @@ const TravelersInformationForm: React.FC<TravelersInformationFormProps> = ({
   return (
     <form
       className="space-y-3"
-      onSubmit={handleSubmit(() => {
-        // TODO: Handle form submission with context and local storage
+      onSubmit={handleSubmit(formData => {
+        updateStepData(FlightStepIds.TRAVELERS_INFORMATION, formData);
       })}
     >
       <div className="grid justify-center">

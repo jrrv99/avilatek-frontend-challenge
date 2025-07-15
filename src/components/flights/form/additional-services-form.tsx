@@ -6,11 +6,11 @@ import { useForm } from 'react-hook-form';
 
 import RHFTextareaField from '@/components/rhf/rhf-textarea-field';
 import RHFToggleField from '@/components/rhf/rhf-toggle-field';
+import { useBookingFormData } from '@/contexts/flightFormContext';
 
 import NavigationButtons from './navigation-buttons';
 import { additionalServicesSchema } from './schemas';
 import { getStepById, FlightStepIds } from './steps';
-
 const step = getStepById(FlightStepIds.ADDITIONAL_SERVICES);
 
 export enum AdditionalServiceName {
@@ -47,6 +47,7 @@ const toggleFields: {
 ];
 
 const AdditionalServicesForm = () => {
+  const { data: bookingFormData, updateStepData } = useBookingFormData();
   const {
     control,
     watch,
@@ -58,6 +59,7 @@ const AdditionalServicesForm = () => {
       travelInsurance: false,
       preferentialSeats: false,
       specialAssistance: false,
+      ...bookingFormData[FlightStepIds.ADDITIONAL_SERVICES],
     },
   });
 
@@ -66,8 +68,8 @@ const AdditionalServicesForm = () => {
   return (
     <form
       className="space-y-3"
-      onSubmit={handleSubmit(() => {
-        // TODO: Handle form submission with context and local storage
+      onSubmit={handleSubmit(formData => {
+        updateStepData(FlightStepIds.ADDITIONAL_SERVICES, formData);
       })}
     >
       {toggleFields.map(field => (

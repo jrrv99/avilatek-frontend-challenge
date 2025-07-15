@@ -10,6 +10,7 @@ import SummaryConfirmationForm from '@/components/flights/form/summary-confirmat
 import TravelInformationForm from '@/components/flights/form/travel-information-form';
 import TravelersInformationForm from '@/components/flights/form/travelers-information-form';
 import { FormCard } from '@/components/form-card';
+import { BookingFormProvider } from '@/contexts/flightFormContext';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -33,11 +34,13 @@ const Page: React.FC<PageProps> = async ({ params }) => {
   const StepComponent = stepComponents[slug] || notFound();
 
   return (
-    <section className="w-screen px-8">
-      <FormCard title={step.title}>
-        <StepComponent />
-      </FormCard>
-    </section>
+    <BookingFormProvider>
+      <section className="w-screen px-8">
+        <FormCard title={step.title}>
+          <StepComponent />
+        </FormCard>
+      </section>
+    </BookingFormProvider>
   );
 };
 

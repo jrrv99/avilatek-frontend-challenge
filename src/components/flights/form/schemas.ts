@@ -5,6 +5,8 @@ import {
   MAX_NUMBER_OF_TRAVELERS,
 } from '@/lib/constants';
 
+import { FlightStepIds } from './steps';
+
 export const documentTypes: { [key: string]: string } = {
   rif: 'RIF',
   passport: 'Pasaporte',
@@ -30,6 +32,8 @@ export const travelInformationSchema = z
       'La fecha de regreso debe ser igual o posterior a la fecha de salida',
     path: ['return_date'], // el error se asigna a return_date
   });
+
+export type TravelInformation = z.infer<typeof travelInformationSchema>
 
 export const TravelerSchema = z
   .object({
@@ -91,3 +95,17 @@ export const additionalServicesSchema = z
   );
 
 export type AdditionalServices = z.infer<typeof additionalServicesSchema>;
+
+export const TravelBookingFormSchema = z.object({
+  ...travelInformationSchema.shape,
+  ...travelersInformationSchema.shape,
+  ...additionalServicesSchema.shape,
+});
+
+export type TravelBookingForm = z.infer<typeof TravelBookingFormSchema>;
+
+export type StepDataMap = {
+  [FlightStepIds.TRAVEL_INFORMATION]: TravelInformation;
+  [FlightStepIds.TRAVELERS_INFORMATION]: TravelersInformation;
+  [FlightStepIds.ADDITIONAL_SERVICES]: AdditionalServices;
+};
